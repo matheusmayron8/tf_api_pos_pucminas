@@ -55,7 +55,7 @@ def createReport():
         user_id = request.json['user_id']
         root_ref = db.collection(user_id)
         json = request.json
-        json['id'] = uuid.uuid4()
+        json['id'] = str(uuid.uuid4())
         root_ref.document().set(request.json)
         return "", 204
     except Exception as e:
