@@ -56,6 +56,7 @@ def createReport():
         root_ref = db.collection(user_id)
         json = request.json
         json['id'] = str(uuid.uuid4())
+        json['status'] = 'pending'
         root_ref.document().set(request.json)
         return "", 204
     except Exception as e:
