@@ -30,9 +30,9 @@ def listReportsByDocument(cpf):
 @app.route("/reports", methods=['GET','POST'])
 def reports():
     if (request.method == 'GET'):
-        listAllReports()
+        return listAllReports()
     elif (request.method == 'POST'):
-        createReport()
+        return createReport()
     else:
         return jsonify(), 405
 
