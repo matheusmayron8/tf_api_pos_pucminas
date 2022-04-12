@@ -1,5 +1,6 @@
 import json
 import os
+import uuid
 from flask import Flask, jsonify, request
 from firebase_admin import credentials, firestore, initialize_app
 
@@ -16,13 +17,12 @@ def root():
     return "Welcome"
 
 
-@app.route("/reports/<cpf>", methods=['GET'])
-def listReportsByDocument(cpf):
-    docs = db.collection(cpf).stream()
+@app.route("/reports/<user_id>", methods=['GET'])
+def listReportsByDocument(user_id):
+    docs = db.collection(user_id).stream()
     all_reports = []
     for doc in docs:
         dict_doc = doc.to_dict()
-        dict_doc.pop('id', None)
         all_reports.append(dict_doc)
 
     return jsonify(all_reports), 200
@@ -52,8 +52,10 @@ def listAllReports():
 
 def createReport():
     try:
-        id = request.json['cpf']
-        root_ref = db.collection(id)
+        user_id = request.json['userId']
+        root_ref = db.collection(user_id)
+        json = request.json
+        json['id'] = uuid.uuid4()
         root_ref.document().set(request.json)
         return "", 204
     except Exception as e:
