@@ -52,7 +52,7 @@ def listAllReports():
 
 def createReport():
     try:
-        user_id = request.json['userId']
+        user_id = request.json['user_id']
         root_ref = db.collection(user_id)
         json = request.json
         json['id'] = uuid.uuid4()
