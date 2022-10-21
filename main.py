@@ -14,7 +14,7 @@ db = firestore.client()
 
 @app.route("/", methods=['GET'])
 def root():
-    return "Welcome"
+    return "Conecta Cidadão API - Seja bem vindo"
 
 
 @app.route("/reports/<user_id>", methods=['GET'])
